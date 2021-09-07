@@ -28,6 +28,7 @@ function playGame() {
   if (computerTurn) {
     let randomNumber = Math.floor(Math.random() * 9 + 1);
   } else {
+    // joueur
   }
   // check()
 }
