@@ -1,0 +1,98 @@
+/* global styles */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: gray;
+  padding: 2rem 0;
+}
+
+/* 
+header
+ */
+
+/* title */
+header h1 {
+  text-align: center;
+  color: #fdfdfd;
+  margin-bottom: 1rem;
+}
+
+/* choices */
+.choices {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.single-choice {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 1rem;
+  background: #222;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid #222;
+  cursor: pointer;
+}
+.single-choice:hover {
+  border-color: #fdfdfd;
+}
+
+.single-choice h3 {
+  color: #fdfdfd;
+}
+.single-choice .far {
+  color: aqua;
+}
+.single-choice .fas {
+  color: greenyellow;
+}
+
+/* 
+game 
+*/
+.game {
+  width: 400px;
+  height: 400px;
+  background: #222;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.box {
+  max-width: 100%;
+  max-height: 100%;
+  border: 1px solid #fdfdfd;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.box .circle,
+.boc .times {
+  font-size: 4rem;
+}
+.circle {
+  color: greenyellow;
+}
+.times {
+  color: aqua;
+}
+
+/* 
+footer 
+*/
+.reset {
+  display: block;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 10px;
+  border: none;
+  background: brown;
+  color: #fdfdfd;
+}
