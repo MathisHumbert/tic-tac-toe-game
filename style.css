@@ -41,6 +41,9 @@ header h1 {
 .single-choice:hover {
   border-color: #fdfdfd;
 }
+.single-choice.active {
+  border-color: #fdfdfd;
+}
 
 .single-choice h3 {
   color: #fdfdfd;
@@ -50,6 +53,13 @@ header h1 {
 }
 .single-choice .fas {
   color: greenyellow;
+}
+
+/* turn */
+.turn {
+  text-align: center;
+  color: #fdfdfd;
+  margin-top: 2rem;
 }
 
 /* 

@@ -1,67 +1,189 @@
+// initialing var
 let computer = [];
 let player = [];
 
 let roundTurn = false;
 let timesTurn = true;
+let playFlag = false;
+let starter;
 let computerTurn;
 
+// get elements
 const boxes = document.querySelectorAll('.box');
 const reset = document.querySelector('.reset');
 const choices = document.querySelectorAll('.single-choice');
+const turn = document.querySelector('.turn');
 
-choices.forEach((choice) => {
-  choice.addEventListener('click', startGame);
-});
+// all of the funtions
 
-function startGame() {
+// launch the game
+function launchGame() {
+  this.classList.add('active');
   if (this.classList.contains('circle')) {
-    computerTurn = true;
+    starter = true;
   } else {
-    computerTurn = false;
+    starter = false;
   }
+  startGame();
+}
+
+// start the game
+function startGame() {
+  computerTurn = starter;
+  roundTurn = false;
+  timesTurn = true;
+  playFlag = false;
   computer = [];
   player = [];
-  let game = setInterval(playGame(), 100);
+  playGame();
 }
 
+// play the game
 function playGame() {
+  // computer turn
   if (computerTurn) {
     let randomNumber = Math.floor(Math.random() * 9 + 1);
-  } else {
-    // joueur
+    if (computer.includes(randomNumber) || player.includes(randomNumber)) {
+      playGame();
+    } else {
+      turn.innerHTML = `Player ${
+        computerTurn
+          ? `<i class="far fa-circle header-circle"></i>`
+          : `<i class="fas fa-times header-times"></i>`
+      }'s turn`;
+      computerPlay(randomNumber);
+    }
   }
-  // check()
+
+  // player turn
+  else {
+    turn.innerHTML = `Player ${
+      computerTurn
+        ? `<i class="far fa-circle header-circle"></i>`
+        : `<i class="fas fa-times header-times"></i>`
+    }'s turn`;
+
+    playFlag = true;
+  }
 }
 
-boxes.forEach((box) => {
-  box.addEventListener('click', handleCheck);
-});
-reset.addEventListener('click', resetAll);
+// check if someone won
+function check() {
+  console.log(computer);
+  console.log(player);
+  if (player.length == 5 && computerTurn === true) return;
 
-function handleCheck() {
+  if (win(player)) {
+    console.log('player won');
+    setTimeout(() => {
+      resetGame();
+    }, 2000);
+    return;
+  }
+  if (win(computer)) {
+    console.log('computer won');
+    setTimeout(() => {
+      resetGame();
+    }, 2000);
+    return;
+  }
+  playGame();
+}
+
+// winning check
+function win(arr) {
+  if (arr.includes(1) && arr.includes(2) & arr.includes(3)) {
+    return true;
+  }
+  if (arr.includes(4) && arr.includes(5) & arr.includes(6)) {
+    return true;
+  }
+  if (arr.includes(7) && arr.includes(8) & arr.includes(9)) {
+    return true;
+  }
+  if (arr.includes(1) && arr.includes(4) & arr.includes(7)) {
+    return true;
+  }
+  if (arr.includes(2) && arr.includes(5) & arr.includes(8)) {
+    return true;
+  }
+  if (arr.includes(3) && arr.includes(6) & arr.includes(9)) {
+    return true;
+  }
+  if (arr.includes(1) && arr.includes(5) & arr.includes(9)) {
+    return true;
+  }
+  if (arr.includes(3) && arr.includes(5) & arr.includes(7)) {
+    return true;
+  }
+}
+
+// player action
+function playerPlay() {
+  if (!playFlag) return;
+  player.push(parseInt(this.dataset.id));
+  handleCheck(this);
+  computerTurn = true;
+  playFlag = false;
+  check();
+}
+
+// computer action
+function computerPlay(num) {
+  computer.push(num);
+  boxes.forEach((box) => {
+    if (num == box.dataset.id) {
+      setTimeout(() => {
+        handleCheck(box);
+        computerTurn = false;
+        playFlag = true;
+        check();
+      }, 500);
+    }
+  });
+}
+
+// display the actions
+function handleCheck(box) {
   if (timesTurn) {
-    this.innerHTML = '<i class="fas fa-times times"></i>';
-    this.removeEventListener('click', handleCheck);
+    box.innerHTML = '<i class="fas fa-times times"></i>';
+    box.removeEventListener('click', playerPlay);
   }
   if (roundTurn) {
-    this.innerHTML = '<i class="far fa-circle circle"></i>';
-    this.removeEventListener('click', handleCheck);
+    box.innerHTML = '<i class="far fa-circle circle"></i>';
+    box.removeEventListener('click', playerPlay);
   }
   roundTurn = !roundTurn;
   timesTurn = !timesTurn;
 }
 
+// reset game
+function resetGame() {
+  boxes.forEach((box) => {
+    box.innerHTML = '';
+    box.addEventListener('click', playerPlay);
+  });
+
+  startGame();
+}
+
+// reset all
 function resetAll() {
   boxes.forEach((box) => {
     box.innerHTML = '';
-    box.addEventListener('click', handleCheck);
+    box.addEventListener('click', playerPlay);
   });
+  choices.forEach((choice) => {
+    choice.classList.remove('active');
+  });
+  starter = '';
 }
 
-// start le jeux avec le choix du joueur
-// circle commence
-// random l'action de l'oridnateur
-// setInterval
-// push le data-id de la case
-// si la case a complte ne pas push
-// créer une fonction check qui verifie sur le joueur ou oridjnateur a gagné
+// Events
+choices.forEach((choice) => {
+  choice.addEventListener('click', launchGame);
+});
+boxes.forEach((box) => {
+  box.addEventListener('click', playerPlay);
+});
+reset.addEventListener('click', resetAll);
