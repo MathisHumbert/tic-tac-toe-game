@@ -187,3 +187,7 @@ boxes.forEach((box) => {
   box.addEventListener('click', playerPlay);
 });
 reset.addEventListener('click', resetAll);
+
+// ajouter un qui a gagné
+// pensez au reset tout
+// ajuster le style.css
