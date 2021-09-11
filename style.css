@@ -6,7 +6,7 @@
 }
 body {
   background-color: hsl(223, 78%, 21%);
-  padding: 2rem 0;
+  font-family: 'Urbanist', sans-serif;
 }
 main {
   min-height: 100vh;
@@ -72,6 +72,7 @@ header h1 {
 .header-times {
   color: #82ccdd;
 }
+
 /* 
 game 
 */
@@ -84,6 +85,7 @@ game
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
 }
+
 .box {
   max-width: 100%;
   max-height: 100%;
@@ -92,7 +94,6 @@ game
   display: grid;
   place-items: center;
 }
-
 .box .circle,
 .box .times {
   font-size: 4rem;
@@ -107,12 +108,23 @@ game
 /* 
 footer 
 */
+.winner {
+  text-align: center;
+  color: #fdfdfd;
+  font-size: 20px;
+  margin-bottom: 2rem;
+}
+
 .reset {
   display: block;
   margin: 0 auto;
   padding: 1rem;
   border-radius: 10px;
   border: none;
-  background: brown;
+  background: #eb2f06;
   color: #fdfdfd;
+  cursor: pointer;
+  font-family: 'Urbanist', sans-serif;
+  text-transform: uppercase;
+  font-size: 1rem;
 }
