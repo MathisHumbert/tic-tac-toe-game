@@ -13,11 +13,13 @@ const boxes = document.querySelectorAll('.box');
 const reset = document.querySelector('.reset');
 const choices = document.querySelectorAll('.single-choice');
 const turn = document.querySelector('.turn');
+const winner = document.querySelector('.winner');
 
 // all of the funtions
 
 // launch the game
 function launchGame() {
+  resetAll();
   this.classList.add('active');
   if (this.classList.contains('circle')) {
     starter = true;
@@ -46,42 +48,40 @@ function playGame() {
     if (computer.includes(randomNumber) || player.includes(randomNumber)) {
       playGame();
     } else {
-      turn.innerHTML = `Player ${
-        computerTurn
-          ? `<i class="far fa-circle header-circle"></i>`
-          : `<i class="fas fa-times header-times"></i>`
-      }'s turn`;
+      displayTurn();
       computerPlay(randomNumber);
     }
   }
 
   // player turn
   else {
-    turn.innerHTML = `Player ${
-      computerTurn
-        ? `<i class="far fa-circle header-circle"></i>`
-        : `<i class="fas fa-times header-times"></i>`
-    }'s turn`;
-
+    displayTurn();
     playFlag = true;
   }
 }
 
 // check if someone won
 function check() {
-  console.log(computer);
-  console.log(player);
-  if (player.length == 5 && computerTurn === true) return;
-
   if (win(player)) {
-    console.log('player won');
+    playFlag = false;
+    displayWinner();
     setTimeout(() => {
       resetGame();
     }, 2000);
     return;
-  }
-  if (win(computer)) {
-    console.log('computer won');
+  } else if (win(computer)) {
+    playFlag = false;
+    displayWinner();
+    setTimeout(() => {
+      resetGame();
+    }, 2000);
+    return;
+  } else if (
+    (player.length == 5 && computerTurn === true) ||
+    (computer.length == 5 && computerTurn === false)
+  ) {
+    playFlag = false;
+    winner.innerHTML = 'Draw';
     setTimeout(() => {
       resetGame();
     }, 2000);
@@ -163,7 +163,7 @@ function resetGame() {
     box.innerHTML = '';
     box.addEventListener('click', playerPlay);
   });
-
+  winner.innerHTML = '';
   startGame();
 }
 
@@ -177,6 +177,41 @@ function resetAll() {
     choice.classList.remove('active');
   });
   starter = '';
+  turn.innerHTML = 'Choose your player';
+}
+
+// display the player or computer turn
+function displayTurn() {
+  if (starter == false)
+    turn.innerHTML = `Player ${
+      computerTurn
+        ? `<i class="far fa-circle header-circle"></i>`
+        : `<i class="fas fa-times header-times"></i>`
+    }'s turn`;
+  else {
+    turn.innerHTML = `Player ${
+      computerTurn
+        ? `<i class="fas fa-times header-times"></i>`
+        : `<i class="far fa-circle header-circle"></i>`
+    }'s turn`;
+  }
+}
+
+// display the winner
+function displayWinner() {
+  if (starter == false)
+    winner.innerHTML = `Player ${
+      computerTurn
+        ? `<i class="fas fa-times header-times"></i>`
+        : `<i class="far fa-circle header-circle"></i>`
+    } won`;
+  else {
+    winner.innerHTML = `Player ${
+      computerTurn
+        ? `<i class="far fa-circle header-circle"></i>`
+        : `<i class="fas fa-times header-times"></i>`
+    } won`;
+  }
 }
 
 // Events
@@ -187,7 +222,3 @@ boxes.forEach((box) => {
   box.addEventListener('click', playerPlay);
 });
 reset.addEventListener('click', resetAll);
-
-// ajouter un qui a gagné
-// pensez au reset tout
-// ajuster le style.css

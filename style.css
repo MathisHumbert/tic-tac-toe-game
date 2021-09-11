@@ -5,8 +5,13 @@
   box-sizing: border-box;
 }
 body {
-  background-color: gray;
+  background-color: hsl(223, 78%, 21%);
   padding: 2rem 0;
+}
+main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
 }
 
 /* 
@@ -32,10 +37,10 @@ header h1 {
   flex-flow: column;
   align-items: center;
   gap: 1rem;
-  background: #222;
+  background: hsl(223, 78%, 11%);
   padding: 2rem;
   border-radius: 1rem;
-  border: 1px solid #222;
+  border: 1px solid hsl(223, 78%, 11%);
   cursor: pointer;
 }
 .single-choice:hover {
@@ -49,10 +54,10 @@ header h1 {
   color: #fdfdfd;
 }
 .single-choice .far {
-  color: aqua;
+  color: #b8e994;
 }
 .single-choice .fas {
-  color: greenyellow;
+  color: #82ccdd;
 }
 
 /* turn */
@@ -61,14 +66,19 @@ header h1 {
   color: #fdfdfd;
   margin-top: 2rem;
 }
-
+.header-circle {
+  color: #b8e994;
+}
+.header-times {
+  color: #82ccdd;
+}
 /* 
 game 
 */
 .game {
   width: 400px;
   height: 400px;
-  background: #222;
+  background: hsl(223, 78%, 11%);
   margin: 2rem auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -84,14 +94,14 @@ game
 }
 
 .box .circle,
-.boc .times {
+.box .times {
   font-size: 4rem;
 }
 .circle {
-  color: greenyellow;
+  color: #b8e994;
 }
 .times {
-  color: aqua;
+  color: #82ccdd;
 }
 
 /* 
